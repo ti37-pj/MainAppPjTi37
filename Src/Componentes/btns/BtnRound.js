@@ -1,23 +1,26 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
-const BtnSquare = (props) => {
+const BtnRound = (props) => {
     return ( 
         <View>
             <TouchableOpacity>
-                <Text style={e.btnSquare}>{props.title}</Text>
+                <Text style={e.btnRound}>{props.title}</Text>
             </TouchableOpacity>
         </View>
      );
 }
 
 const e = StyleSheet.create({
-    btnSquare:{
+    btnRound:{
         backgroundColor:"#009688",
         color:"white",
-        padding:10,
-        borderRadius: 5,
+        borderRadius: 50,
+        textAlign:"center",
+        paddingTop: 10,
+        width:40,
+        height:40,
     },
 })
-
-export default BtnSquare;
+ 
+export default BtnRound;
