@@ -1,7 +1,7 @@
 import { Divider } from '@mui/material';
 import { height } from '@mui/system';
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Button} from 'react-native';
 import BtnRound from '../Componentes/btns/BtnRound';
 import BtnSquare from '../Componentes/btns/BtnSquare';
 import ProdutosContexto from '../Contexto/ProdutosContexto';
@@ -11,7 +11,7 @@ import api from '../../api';
 import { ProdutoContexto } from '../Contexto/ProdutosContexto';
 import { CategoriaContexto } from '../Contexto/CategoriaContexto';
 
-const Produtos = () => {
+const Produtos = ({navigation}) => {
 
     const [produto, setProduto]= React.useContext(ProdutoContexto)
     //const [categorias, setCategoria]= React.useContext(CategoriaContexto)
@@ -27,6 +27,10 @@ const Produtos = () => {
 
     return ( 
         <View>
+            <Button
+                title="Carrinho"
+                onPress={() => navigation.navigate('Carrinho')}
+            />
             {
                 produto==0 ? <Text>Nenhum Produto Encontrado</Text>
                 :
