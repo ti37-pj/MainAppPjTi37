@@ -9,19 +9,21 @@ import ProdutoModal from '../Componentes/ProdutoModal';
 import api from '../../api';
 
 import { ProdutoContexto } from '../Contexto/ProdutosContexto';
+import { CategoriaContexto } from '../Contexto/CategoriaContexto';
 
 const Produtos = () => {
 
     const [produto, setProduto]= React.useContext(ProdutoContexto)
-    const [categoria, setCategoria]= React.useContext(ProdutoContexto)
+    //const [categorias, setCategoria]= React.useContext(CategoriaContexto)
+    const buscaCategoria = React.useContext(CategoriaContexto)
 
+    const [ produtoSelecionado, setProdutoSelecionado ] = React.useState(null);
     const [ openModal, setOpenModal ] = React.useState(false);
 
-    const abreModal = () =>{
+    const abreModal = (p) =>{
         setOpenModal(!openModal)
+        setProdutoSelecionado(p)
     }
-
-    console.log(produto)
 
     return ( 
         <View>
@@ -36,12 +38,12 @@ const Produtos = () => {
                         <View style={e.containerInfo} >
                                 <Text style={e.text}>{p.nome}</Text>
                                 <View style={e.containerCategoriaPreco} >
-                                    <Text>{p.categoria}</Text>
-                                    <Text style={e.preco}>R$:{p.preco}</Text>
+                                    <Text>{buscaCategoria(p.id_categoria)}</Text>
+                                    <Text style={e.preco}>R$:{p.preco_venda}</Text>
                                 </View>
                                 <Divider/>
                                 <View style={e.btnView} >
-                                    <TouchableOpacity onPress={() => abreModal() } >
+                                    <TouchableOpacity onPress={() => abreModal(p) } >
                                         <Text style={e.btnSquare}>Detalhes</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity>
@@ -54,7 +56,7 @@ const Produtos = () => {
                 }
                 </View>
             }
-            <ProdutoModal visible={openModal} onClose={() => setOpenModal(false)} />
+            <ProdutoModal produto={produtoSelecionado} visible={openModal} onClose={() => setOpenModal(false)} />
         </View>
      );
 }

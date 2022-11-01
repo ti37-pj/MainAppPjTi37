@@ -10,20 +10,15 @@ export const ProdutoProvedor = ({children}) => {
 	}, [])
 	
 	const buscaTodos = () => {
-		api.get("/categorias/busca_todos")
-		.then(res =>{
-			setCategorias(res.data)
-			api.get("/produtos/busca_todos")
+		api.get("/produtos/busca_todos")
 			.then(res => setProdutos(res.data))
-		})
-		.catch(res => console.log(res));
+			.catch(res => console.log(res));
 	}
 
-	const [categorias, setCategorias] = React.useState([]);
     const [ produtos , setProdutos] = React.useState([]);
 
     return ( 
-        <ProdutoContexto.Provider value={[produtos, setProdutos, categorias, setCategorias]}>
+        <ProdutoContexto.Provider value={[produtos, setProdutos]}>
             {children}
         </ProdutoContexto.Provider>
      );

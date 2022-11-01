@@ -5,17 +5,20 @@ import BtnNavi from '../Componentes/btns/BtnNavi';
 import Produtos from './Produtos';
 import Carrinho from './Carrinho';
 import { ProdutoProvedor } from '../Contexto/ProdutosContexto';
+import { CategoriaProvedor } from '../Contexto/CategoriaContexto';
 
 const Stack = createNativeStackNavigator();
 
 const Cardapio = () => {
-    return ( 
-        <ProdutoProvedor>
-            <Stack.Navigator>
-                <Stack.Screen name="Produtos" component={Produtos} />
-                <Stack.Screen name="Carrinho" component={Carrinho} />
-            </Stack.Navigator>
-        </ProdutoProvedor>
+    return (
+        <CategoriaProvedor>
+            <ProdutoProvedor>
+                <Stack.Navigator>
+                    <Stack.Screen name="Produtos" component={Produtos} />
+                    <Stack.Screen name="Carrinho" component={Carrinho} />
+                </Stack.Navigator>
+            </ProdutoProvedor>
+        </CategoriaProvedor> 
      );
 }
  
