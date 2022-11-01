@@ -1,36 +1,30 @@
-import React, { createContext } from 'react';
-import axios from 'axios';
+import React, { createContext, useEffect } from 'react';
+import api from '../../api';
 
-const produtoContexto = createContext();
+export const ProdutoContexto = createContext();
 
-const ProdutoContexto = ({children}) => {
+export const ProdutoProvedor = ({children}) => {
 
-    const [ produtos , setProdutos] = React.useState([
-		{
-			id:1,
-			nome:"X-Tudo",
-			descricao:"Pão, alface, queijo, bacon, 2 hamburguers, molho especial",
-			preco:"20"
-		},
-		{
-			id:2,
-			nome:"Balde De Frango",
-			descricao:"Frango frito com molho picante",
-			preco:"15"
-		},
-		{
-			id:3,
-			nome:"Capuccino",
-			descricao:"Pó de cappucino com leite",
-			preco:"10"
-		},
-	])
+	useEffect(()=>{
+		buscaTodos();
+	}, [])
+	
+	const buscaTodos = () => {
+		api.get("/categorias/busca_todos")
+		.then(res =>{
+			setCategorias(res.data)
+			api.get("/produtos/busca_todos")
+			.then(res => setProdutos(res.data))
+		})
+		.catch(res => console.log(res));
+	}
+
+	const [categorias, setCategorias] = React.useState([]);
+    const [ produtos , setProdutos] = React.useState([]);
 
     return ( 
-        <produtoContexto.Provider value={{produtos, setProdutos}}>
+        <ProdutoContexto.Provider value={[produtos, setProdutos, categorias, setCategorias]}>
             {children}
-        </produtoContexto.Provider>
+        </ProdutoContexto.Provider>
      );
 }
- 
-export default ProdutoContexto;

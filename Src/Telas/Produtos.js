@@ -6,8 +6,14 @@ import BtnRound from '../Componentes/btns/BtnRound';
 import BtnSquare from '../Componentes/btns/BtnSquare';
 import ProdutosContexto from '../Contexto/ProdutosContexto';
 import ProdutoModal from '../Componentes/ProdutoModal';
+import api from '../../api';
+
+import { ProdutoContexto } from '../Contexto/ProdutosContexto';
 
 const Produtos = () => {
+
+    const [produto, setProduto]= React.useContext(ProdutoContexto)
+    const [categoria, setCategoria]= React.useContext(ProdutoContexto)
 
     const [ openModal, setOpenModal ] = React.useState(false);
 
@@ -15,27 +21,39 @@ const Produtos = () => {
         setOpenModal(!openModal)
     }
 
+    console.log(produto)
+
     return ( 
         <View>
-            <View style={e.container} >
-            <Image style={e.img}  source={{uri:'https://via.placeholder.com/88x136'}} />
-            <View style={e.containerInfo} >
-                <Text style={e.text} >Nome do Produto</Text>
-                <View style={e.containerCategoriaPreco} >
-                    <Text>Categoria</Text>
-                    <Text style={e.preco} >R$:29,90</Text>
+            {
+                produto==0 ? <Text>Nenhum Produto Encontrado</Text>
+                :
+                <View>
+                {
+                    produto.map(p =>{
+                    return<View style={e.container} key={p.id} >
+                        <Image style={e.img}  source={{uri:p.imagem_url}} />
+                        <View style={e.containerInfo} >
+                                <Text style={e.text}>{p.nome}</Text>
+                                <View style={e.containerCategoriaPreco} >
+                                    <Text>{p.categoria}</Text>
+                                    <Text style={e.preco}>R$:{p.preco}</Text>
+                                </View>
+                                <Divider/>
+                                <View style={e.btnView} >
+                                    <TouchableOpacity onPress={() => abreModal() } >
+                                        <Text style={e.btnSquare}>Detalhes</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity>
+                                        <Text style={e.btnRound}>+</Text>
+                                    </TouchableOpacity>     
+                                </View> 
+                            </View>
+                    </View>
+                    })
+                }
                 </View>
-                <Divider/>
-                <View style={e.btnView} >
-                    <TouchableOpacity onPress={() => abreModal() } >
-                        <Text style={e.btnSquare}>Detalhes</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={e.btnRound}>+</Text>
-                    </TouchableOpacity>     
-                </View> 
-            </View>
-            </View>
+            }
             <ProdutoModal visible={openModal} onClose={() => setOpenModal(false)} />
         </View>
      );
