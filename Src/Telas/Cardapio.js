@@ -14,8 +14,8 @@ const Cardapio = () => {
         <CategoriaProvedor>
             <ProdutoProvedor>
                 <Stack.Navigator>
-                    <Stack.Screen name="Produtos" component={Produtos} />
                     <Stack.Screen name="Carrinho" component={Carrinho} />
+                    <Stack.Screen name="Produtos" component={Produtos} />
                 </Stack.Navigator>
             </ProdutoProvedor>
         </CategoriaProvedor> 
