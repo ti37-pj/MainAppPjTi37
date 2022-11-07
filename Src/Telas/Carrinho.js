@@ -41,6 +41,17 @@ const Carrinho = () => {
         })
         setTotalCarrinho(precoTotal)
     }
+
+    const removeDoCarrinho = (remove) => {
+
+        const removeProduto = produtosCarrinho.filter(c=>{
+            if (c.id != remove.id){
+                return c
+            }
+        })
+        console.log(removeProduto)
+        setProdutosCarrinho(removeProduto)
+    }
     
     const contador = (produto,contado) => {
 
@@ -81,7 +92,7 @@ const Carrinho = () => {
                                 <TouchableOpacity onPress={()=> contador(c,true)} >
                                     <Text style={e.btnRound}>+</Text>
                                 </TouchableOpacity>  
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={()=> removeDoCarrinho(c)}>
                                     <Text>Remover</Text>
                                 </TouchableOpacity>
                             </View> 
