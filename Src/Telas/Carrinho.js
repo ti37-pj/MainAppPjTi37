@@ -1,43 +1,21 @@
 import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
+import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
+
 const Carrinho = () => {
 
     useEffect(()=>{
         atualizaTotal()
     },produtosCarrinho)
 
-    const banco = [
-		{
-			id:1,
-			nome:'Alguma Coisa',
-			preco_venda:29,
-            quantidade:1,
-            total:29,
-		},
-		{
-			id:2,
-			nome:'Uma Coisa Diferente',
-			preco_venda:39,
-            quantidade:1,
-            total:39,
-		},
-		{
-			id:3,
-			nome:'Uma Coisa Ainda mais Diferente',
-			preco_venda:49,
-            quantidade:1,
-            total:49,
-		}
-	]
-
-    const [produtosCarrinho, setProdutosCarrinho] = React.useState(banco)
+    const [produtosCarrinho, setProdutosCarrinho] = React.useContext(CarrinhoContexto)
     const [totalCarrinho, setTotalCarrinho] = React.useState(0)
 
     const atualizaTotal = () => {
         let precoTotal = 0
         produtosCarrinho.map(c=>{
-            precoTotal += c.total
+            precoTotal += parseFloat(c.total)
         })
         setTotalCarrinho(precoTotal)
     }
@@ -58,7 +36,7 @@ const Carrinho = () => {
         produto.quantidade += contado == false ? -1: 1;
         produto.quantidade = produto.quantidade < 1 ? 1 : produto.quantidade
         
-        produto.total = produto.quantidade * produto.preco_venda
+        produto.total = produto.quantidade * produto.preco
 
         const novoCarrinho = produtosCarrinho.map(c=>{
             if (c.id == produto.id){
@@ -68,7 +46,6 @@ const Carrinho = () => {
         })
 
         setProdutosCarrinho(novoCarrinho)
-       // atualizaTotal()
 
     }
 
@@ -80,7 +57,7 @@ const Carrinho = () => {
                 {   
                     produtosCarrinho.map(c =>{
                     return<View style={e.container} key={c.id} >
-                        <Image style={e.img}  source={{uri:"https://via.placeholder.com/70x100"}} />
+                        <Image style={e.img}  source={{uri:c.imagem}} />
                         <View style={e.containerInfo} >
                             <Text style={e.text}>{c.nome}</Text>
                             <Text style={e.preco} >R$:{c.total}</Text>

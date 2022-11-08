@@ -1,20 +1,16 @@
 import { Divider } from '@mui/material';
-import { height } from '@mui/system';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button} from 'react-native';
-import BtnRound from '../Componentes/btns/BtnRound';
-import BtnSquare from '../Componentes/btns/BtnSquare';
-import ProdutosContexto from '../Contexto/ProdutosContexto';
 import ProdutoModal from '../Componentes/ProdutoModal';
-import api from '../../api';
 
 import { ProdutoContexto } from '../Contexto/ProdutosContexto';
 import { CategoriaContexto } from '../Contexto/CategoriaContexto';
+import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
 
 const Produtos = ({navigation}) => {
 
     const [produto, setProduto]= React.useContext(ProdutoContexto)
-    //const [categorias, setCategoria]= React.useContext(CategoriaContexto)
+    const [carrinho, setCarrinho] = React.useContext(CarrinhoContexto)
     const buscaCategoria = React.useContext(CategoriaContexto)
 
     const [ produtoSelecionado, setProdutoSelecionado ] = React.useState(null);
@@ -23,6 +19,22 @@ const Produtos = ({navigation}) => {
     const abreModal = (p) =>{
         setOpenModal(!openModal)
         setProdutoSelecionado(p)
+    }
+
+    const colocarNoCarrinho = (produto) => {
+        
+        setCarrinho([...carrinho, produto])
+    };
+
+    const mandarParaCarrinho = (p) => {
+        colocarNoCarrinho({
+            id:p.id,
+			nome:p.nome,
+			preco:p.preco_venda,
+            quantidade:1,
+            total:p.preco_venda,
+            imagem:p.imagem_url
+        })
     }
 
     return ( 
@@ -50,7 +62,7 @@ const Produtos = ({navigation}) => {
                                     <TouchableOpacity onPress={() => abreModal(p) } >
                                         <Text style={e.btnSquare}>Detalhes</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={()=>mandarParaCarrinho(p)} >
                                         <Text style={e.btnRound}>+</Text>
                                     </TouchableOpacity>     
                                 </View> 
@@ -82,9 +94,10 @@ const e = StyleSheet.create({
         marginBottom:10,
     },
     containerInfo:{
-        marginLeft:10,
-        backgroundColor:"red",
-        width:200
+        width:200,
+        height:"100%",
+        margin:0,
+        padding:20,
     },
     btnView:{
         flexDirection:"row",

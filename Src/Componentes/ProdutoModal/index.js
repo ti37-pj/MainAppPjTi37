@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { CategoriaContexto } from '../../Contexto/CategoriaContexto';
+import { CarrinhoContexto } from '../../Contexto/CarrinhoContexto';
 
 const ProdutoModal = (props) => {
 
+    const [carrinho, setCarrinho] = React.useContext(CarrinhoContexto)
     const buscaCategoria = React.useContext(CategoriaContexto)
     const [ visible, setVisible ] = React.useState(props.visible)
 
@@ -11,7 +13,19 @@ const ProdutoModal = (props) => {
         setVisible(props.visible)
     }, [props.visible])
 
+    const colocarNoCarrinho = (produto) => {
+        setCarrinho([...carrinho, produto])
+    };
+
     const mandarParaCarrinho = () => {
+        colocarNoCarrinho({
+            id:props.produto.id,
+			nome:props.produto.nome,
+			preco:props.produto.preco_venda,
+            quantidade:1,
+            total:props.produto.preco_venda,
+            imagem:props.produto.imagem_url
+        })
     }
 
     return ( 
@@ -27,7 +41,7 @@ const ProdutoModal = (props) => {
                 <Text style={e.subtitulo}>{buscaCategoria(props.produto?.id_categoria)}</Text>
                 <Text style={e.descricao}>{props.produto?.descricao}</Text>
                 <Text style={e.preco}> Preço: R${props.produto?.preco_venda}</Text>
-                <TouchableOpacity onPress={()=>mandarParaCarrinho()} >
+                <TouchableOpacity onPress={()=>{mandarParaCarrinho(); setVisible(false); props.onClose()} } >
                     <Text style={e.btnCarrinho} >Adicionar ao Carrinho</Text>
                 </TouchableOpacity>
             </Modal>
