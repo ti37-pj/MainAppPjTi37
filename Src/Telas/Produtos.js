@@ -2,13 +2,16 @@ import { Divider } from '@mui/material';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button} from 'react-native';
 import ProdutoModal from '../Componentes/ProdutoModal';
-
+import { MesaContexto } from "../Contexto/MesaContexto";
 import { ProdutoContexto } from '../Contexto/ProdutosContexto';
 import { CategoriaContexto } from '../Contexto/CategoriaContexto';
 import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
 
+
+
 const Produtos = ({navigation}) => {
 
+    const [ mesa, alteraMesa ] = React.useContext(MesaContexto)
     const [produto, setProduto]= React.useContext(ProdutoContexto)
     const [carrinho, setCarrinho] = React.useContext(CarrinhoContexto)
     const buscaCategoria = React.useContext(CategoriaContexto)
