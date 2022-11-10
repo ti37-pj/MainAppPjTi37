@@ -38,6 +38,8 @@ const Produtos = ({navigation}) => {
             total:p.preco_venda,
             imagem:p.imagem_url
         })
+
+        alert("Produto Inserido com Sucesso")
     }
 
     return ( 
