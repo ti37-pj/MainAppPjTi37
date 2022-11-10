@@ -26,6 +26,7 @@ const ProdutoModal = (props) => {
             total:props.produto.preco_venda,
             imagem:props.produto.imagem_url
         })
+        alert("Produto Inserido com Sucesso")
     }
 
     return ( 
