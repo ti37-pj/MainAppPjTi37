@@ -24,7 +24,7 @@ const Resumo = ({alteraPedido}) => {
         .catch( res => console.log(res) )
     },[])
 
-    const calculaTotal = () => {
+    /*const calculaTotal = () => {
         let precoTotal = 0
         produtosPedido.map(p=>{
             precoTotal += parseFloat(p.preco_venda * p.quantidade)
@@ -32,7 +32,7 @@ const Resumo = ({alteraPedido}) => {
         return(
             precoTotal.toFixed(2).replace(".",",")
         )
-    }
+    } */
 
     console.log(produtosPedido)
     return(
@@ -41,7 +41,7 @@ const Resumo = ({alteraPedido}) => {
             { produtosPedido == 0? <Text>  </Text> : 
                 <Box>
                     <Text style={e.Container} > Código do pedido: { produtosPedido[0].id_pedidos } </Text>
-                    <Text style={e.Texto} > Total: R$ { calculaTotal() }</Text>
+                    <Text style={e.Texto} > Status do último Pedido </Text>
                 </Box>
             }
         </Box>
