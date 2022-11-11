@@ -9,10 +9,13 @@ import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
 
 import MyScreen from "../Componentes/MyScreen";
 import MyButton from '../Componentes/MyButton';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const Produtos = ({navigation}) => {
+const Produtos = () => {
+
+    const navigation = useNavigation()
 
     const [ mesa, alteraMesa ] = React.useContext(MesaContexto)
     const [produto, setProduto]= React.useContext(ProdutoContexto)
