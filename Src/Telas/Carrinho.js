@@ -121,7 +121,7 @@ const Carrinho = ({navigation}) => {
             <TextInput placeholder='Observações sobre o pedido' style={e.textInput} multiline={true} numberOfLines={4} onChangeText={(e)=>setObservacao(e)}/>
             <Text style={e.total} >Preço do Pedido:R${totalCarrinho}</Text>
             <Button
-                title="Pagar"
+                title="Fazer Pedido"
                 onPress={() => {navigation.navigate('Pagamento'), pagarClicado()}}
             />
         </View>
