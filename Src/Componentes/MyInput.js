@@ -20,7 +20,8 @@ texto:{
     marginBottom:16,
     borderWidth: 1,
     borderColor: "#CCC",
-    width:"98%",
+    padding:15,
+    backgroundColor:"#Fff",
 }
 })
 export default MyInput;

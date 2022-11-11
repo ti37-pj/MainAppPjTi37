@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text,  Image, Modal } from 'react-native';
 import { Box } from "@react-native-material/core";
 import { Button } from "@react-native-material/core";
-import { PedidoContexto } from "../Contextos/PedidoContexto";
+import { PedidoContexto } from "../Contexto/PedidoContexto";
 import axios from 'axios';
 
 const Detalhes = ({exibeModal, alteraExibeModal}) =>{

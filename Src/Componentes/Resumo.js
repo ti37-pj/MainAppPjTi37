@@ -1,6 +1,6 @@
 import { Box } from "@react-native-material/core";
 import { StyleSheet, Text  } from 'react-native';
-import { PedidoContexto } from "../Contextos/PedidoContexto";
+import { PedidoContexto } from "../Contexto/PedidoContexto";
 import React from "react";
 import axios from "axios";
 
