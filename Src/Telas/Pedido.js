@@ -8,7 +8,7 @@ import api from './api';
 import Resumo from './assets/Componentes/Resumo';
 import StatusPedido from './assets/Componentes/StatusPedido'
 import Detalhes from './assets/Componentes/Detalhes'
-import { PedidoProvedor, PedidoContexto } from './assets/Contextos/PedidoContexto';
+import { PedidoProvedor, PedidoContexto } from './assets/Contexto/PedidoContexto';
 
 
 export default function App() {
