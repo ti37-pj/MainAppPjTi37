@@ -17,10 +17,10 @@ export default function App() {
 			<MesaProvedor>
 				<NavigationContainer>
 					<Drawer.Navigator>			
+							<Drawer.Screen name="Cardápio" component={Cardapio} />
 							<Drawer.Screen name="Login" component={Login} />
 							<Drawer.Screen name="Mesa" component={Mesa} />
 							<Drawer.Screen name="Cadastro" component={Cadastro} />
-							<Drawer.Screen name="Cardápio" component={Cardapio} />
 					</Drawer.Navigator>
 				</NavigationContainer>
 			</MesaProvedor>
