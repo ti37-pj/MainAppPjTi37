@@ -2,9 +2,9 @@ import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { color } from "react-native-reanimated";
 
-const MyButton = ({onPress, title, principal}) => {
+const MyButton = ({onPress, title, principal, fixed}) => {
     return ( 
-        <TouchableOpacity onPress={onPress} style={[e.botao, principal ? e.principal:e.secundary]}>
+        <TouchableOpacity onPress={onPress} style={[e.botao, principal ? e.principal:e.secundary, fixed ? e.fixed: e.dinamic]}>
             <Text style={principal ? e.principal:e.secundary}>{title}</Text>
         </TouchableOpacity>
      );
@@ -27,7 +27,7 @@ const MyButton = ({onPress, title, principal}) => {
         },
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
-        
+        width:'80%',
         elevation: 10,
     },
 
@@ -38,7 +38,16 @@ const MyButton = ({onPress, title, principal}) => {
     secundary:{
         backgroundColor:"#Fff",
         color:"#000"
-    }
+    },
+    fixed:{
+        position: "absolute",
+        zIndex: 999,
+        bottom:20,
+    },
+    dinamic:{
+        position:"relative",
+    },
+
  })
 
 export default MyButton;

@@ -1,10 +1,7 @@
 import React from "react";
-import { View } from "react-native";
 import MyInput from "../Componentes/MyInput";
 import MyScreen from "../Componentes/MyScreen";
 import MyButton from "../Componentes/MyButton";
-import MyTitle from "../Componentes/MyTitle";
-
 
 const Cadastro = ({navigation}) => {
 
@@ -12,12 +9,12 @@ const Cadastro = ({navigation}) => {
 
     return ( 
         <MyScreen>
-            <MyInput label='Nome' variant='outlined' />
-            <MyInput label='Cpf' variant='outlined' />
-            <MyInput label='Telefone' variant='outlined' />
-            <MyInput label='Email' variant='outlined' />
-            <MyInput label='Senha' variant='outlined' />
-            <MyInput label='Repetir Senha' variant='outlined' />
+            <MyInput label='Nome' variant='outlined' placeholder='Nome' />
+            <MyInput label='Cpf' variant='outlined' placeholder='CPF'/>
+            <MyInput label='Telefone' variant='outlined' placeholder='Telefone'/>
+            <MyInput label='Email' variant='outlined' placeholder='Email'/>
+            <MyInput label='Senha' variant='outlined' placeholder='Senha'/>
+            <MyInput label='Repetir Senha' variant='outlined' placeholder='Repetir Senha'/>
             <MyButton title='Salvar' onPress={()=>navigation.navigate('Mesa')} principal={true}/>
             <MyButton title='Cancelar' onPress={()=>navigation.navigate('Login')} principal={true} />
         </MyScreen>
