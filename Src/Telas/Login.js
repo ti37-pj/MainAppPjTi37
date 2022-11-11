@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
-import { View, StyleSheet } from 'react-native';
-
+import { StyleSheet, Text } from 'react-native';
+import MyScreen from "../Componentes/MyScreen";
 import MyInput from "../Componentes/MyInput";
 import MyButton from "../Componentes/MyButton";
-
+import MyText from "../Componentes/MyText";
+import MyTitle from "../Componentes/MyTitle";
 import { UsuarioContexto } from "../Contexto/UsuarioContexto";
+
 
 const Login = ({navigation}) => {
 
@@ -48,12 +50,14 @@ const Login = ({navigation}) => {
     
 
     return ( 
-        <View style={e.container}>
+        <MyScreen style={e.container}>
+            <MyTitle>Bem-Vindo</MyTitle>
+            <MyText>Entre com sua conta</MyText>
             <MyInput label='Login' variant='outlined' onChangeText={alteraLogin} placeholder='Nome de usuário'/>
             <MyInput  label='Senha' variant='outlined' onChangeText={alteraSenha} placeholder='Digete sua senha' />
-            <MyButton title='Entrar' onPress={()=>autentica()}  />
+            <MyButton title='Entrar' onPress={()=>autentica()} principal="true" />
             <MyButton title='Cadastrar' onPress={BotaoTelaCadastroPressionado} />
-        </View>
+        </MyScreen>
      );
 }
 
