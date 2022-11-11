@@ -1,9 +1,13 @@
 import React, {useEffect} from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Button, TextInput } from 'react-native';
 
 import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
+import { MesaContexto } from '../Contexto/MesaContexto';
+import { UsuarioContexto } from '../Contexto/UsuarioContexto';
 
-const Carrinho = () => {
+import api from '../../api';
+
+const Carrinho = ({navigation}) => {
 
     useEffect(()=>{
         atualizaTotal()
@@ -11,6 +15,10 @@ const Carrinho = () => {
 
     const [produtosCarrinho, setProdutosCarrinho] = React.useContext(CarrinhoContexto)
     const [totalCarrinho, setTotalCarrinho] = React.useState(0)
+    const [pedido, setPedido] = React.useState();
+    const [observacao, setObservacao] = React.useState('');
+    const [mesa, setMesa] = React.useContext(MesaContexto);
+    const [usuario, alteraUsuario] = React.useContext(UsuarioContexto)
 
     const atualizaTotal = () => {
         let precoTotal = 0
@@ -29,6 +37,37 @@ const Carrinho = () => {
         })
         console.log(removeProduto)
         setProdutosCarrinho(removeProduto)
+    }
+
+
+    const pagarClicado = () => {
+        inserePedido()
+    }
+
+    const inserePedido = () => {
+        console.log(usuario)
+        const produtos=[]
+        produtosCarrinho.map(cp =>{
+            produtos.push({
+                id_produto:cp.id,
+                quantidade:cp.quantidade
+            })
+        })
+        const objPedido={
+            //mesa:mesa,
+            mesa:20,
+            observacao:observacao,
+            id_cliente:1,
+            //id_cliente:usuario.id,
+            produto:produtos
+        }
+        setPedido(objPedido)
+        objPedido.produtos = []
+        api.post("/pedidos/insere",objPedido)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res=> console.log(res))
     }
     
     const contador = (produto,contado) => {
@@ -79,7 +118,12 @@ const Carrinho = () => {
                 }
                 </View>
             }
-            <Text>Preço do Pedido:R${totalCarrinho}</Text>
+            <TextInput placeholder='Observações sobre o pedido' style={e.textInput} multiline={true} numberOfLines={4} onChangeText={(e)=>setObservacao(e)}/>
+            <Text style={e.total} >Preço do Pedido:R${totalCarrinho}</Text>
+            <Button
+                title="Pagar"
+                onPress={() => {navigation.navigate('Pagamento'), pagarClicado()}}
+            />
         </View>
      );
 }
@@ -128,6 +172,19 @@ const e = StyleSheet.create({
         width:40,
         height:40,
         margin:15,
+    },
+    textInput:{
+        padding:15,
+        borderWidth: 1,
+        margin:5,
+        borderColor: "#CCC"
+    },
+    total:{
+        color:"#009688",
+        margin:20,
+        textAlign:"center",
+        fontWeight:"bold",
+        fontSize: 20,
     },
 })
  

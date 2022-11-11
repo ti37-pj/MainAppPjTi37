@@ -1,9 +1,10 @@
 import React from "react";
-import {Button, Text, TextInput } from '@react-native-material/core';
-import { View, StyleSheet } from "react-native";
 import { UsuarioContexto } from "../Contexto/UsuarioContexto";
 import { MesaContexto } from "../Contexto/MesaContexto";
 import MyInput from "../Componentes/MyInput";
+import MyScreen from "../Componentes/MyScreen";
+import MyButton from "../Componentes/MyButton";
+import MyTitle from "../Componentes/MyTitle";
 
 const Mesa = ({navigation}) => {
 
@@ -28,24 +29,14 @@ const Mesa = ({navigation}) => {
     const [usuario,alteraUsuario] = React.useContext(UsuarioContexto)
     console.log (usuario)
     return ( 
-        <View>
-            <Text> Selecionar Mesa </Text>
-            <TextInput label="Numero da Mesa"  />
+        <MyScreen>
+            <MyTitle> Selecionar Mesa </MyTitle>
             <MyInput  label='Número da Mesa' variant='outlined' onChangeText={alteraMesa} placeholder='Digite sua Mesa' />
-            <Button style={e.botao} title="Continuar" onPress={ContinuarClicado } /> 
-        </View>
+            <MyButton title="Continuar" onPress={ContinuarClicado } principal={true} /> 
+        </MyScreen>
      );
 }
 
-const e=StyleSheet.create({
-    botao:{
-        borderRadius: 22,
-        padding: 5,
-        fontSize: 16,
-        marginTop: 20,
-        backgroundColor: '#F2A922',
-        color: "#000"
-    }
-})
+
  
 export default Mesa;

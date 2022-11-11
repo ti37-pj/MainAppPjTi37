@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Produtos from './Produtos';
 import Carrinho from './Carrinho';
+import Pagamento from './Pagamento';
 import { ProdutoProvedor } from '../Contexto/ProdutosContexto';
 import { CategoriaProvedor } from '../Contexto/CategoriaContexto';
 import { CarrinhoProvedor } from '../Contexto/CarrinhoContexto';
@@ -16,6 +17,7 @@ const Cardapio = () => {
                     <Stack.Navigator>
                         <Stack.Screen name="Produtos" component={Produtos} />
                         <Stack.Screen name="Carrinho" component={Carrinho} />
+                        <Stack.Screen name="Pagamento" component={Pagamento} />
                     </Stack.Navigator>
                 </ProdutoProvedor>
             </CategoriaProvedor> 
