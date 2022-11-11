@@ -7,6 +7,9 @@ import { ProdutoContexto } from '../Contexto/ProdutosContexto';
 import { CategoriaContexto } from '../Contexto/CategoriaContexto';
 import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
 
+import MyScreen from "../Componentes/MyScreen";
+import MyButton from '../Componentes/MyButton';
+
 
 
 const Produtos = ({navigation}) => {
@@ -55,38 +58,46 @@ const Produtos = ({navigation}) => {
         alert("Produto Inserido com Sucesso")
     }
 
-    return ( 
-        <View>
-            {
-                produto==0 ? <Text>Nenhum Produto Encontrado</Text>
-                :
-                <View>
+    return (
+        <View style={e.cardapio}>
+            <MyButton
+                    title="Carrinho"
+                    principal={true}
+                    fixed={true}
+                    onPress={() => navigation.navigate('Carrinho') }
+                />
+            <MyScreen>
                 {
-                    produto.map(p =>{
-                    return<View style={e.container} key={p.id} >
-                        <Image style={e.img}  source={{uri:p.imagem_url}} />
-                        <View style={e.containerInfo} >
-                                <Text style={e.text}>{p.nome}</Text>
-                                <View style={e.containerCategoriaPreco} >
-                                    <Text>{buscaCategoria(p.id_categoria)}</Text>
-                                    <Text style={e.preco}>R$:{p.preco_venda}</Text>
+                    produto==0 ? <Text>Nenhum Produto Encontrado</Text>
+                    :
+                    <View>
+                    {
+                        produto.map(p =>{
+                        return<View style={e.container} key={p.id} >
+                            <Image style={e.img}  source={{uri:p.imagem_url}} />
+                            <View style={e.containerInfo} >
+                                    <Text style={e.text}>{p.nome}</Text>
+                                    <View style={e.containerCategoriaPreco} >
+                                        <Text>{buscaCategoria(p.id_categoria)}</Text>
+                                        <Text style={e.preco}>R$:{p.preco_venda}</Text>
+                                    </View>
+                                    <Divider/>
+                                    <View style={e.btnView} >
+                                        <TouchableOpacity onPress={() => abreModal(p) } >
+                                            <Text style={e.btnSquare}>Detalhes</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={()=>mandarParaCarrinho(p)} >
+                                            <Text style={e.btnRound}>+</Text>
+                                        </TouchableOpacity>     
+                                    </View> 
                                 </View>
-                                <Divider/>
-                                <View style={e.btnView} >
-                                    <TouchableOpacity onPress={() => abreModal(p) } >
-                                        <Text style={e.btnSquare}>Detalhes</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={()=>mandarParaCarrinho(p)} >
-                                        <Text style={e.btnRound}>+</Text>
-                                    </TouchableOpacity>     
-                                </View> 
-                            </View>
+                        </View>
+                        })
+                    }
                     </View>
-                    })
                 }
-                </View>
-            }
-            <ProdutoModal produto={produtoSelecionado} visible={openModal} onClose={() => setOpenModal(false)} />
+                <ProdutoModal produto={produtoSelecionado} visible={openModal} onClose={() => setOpenModal(false)} />
+            </MyScreen>
         </View>
      );
 }
@@ -147,6 +158,10 @@ const e = StyleSheet.create({
         padding:10,
         borderRadius: 5,
     },
+    cardapio:{
+        height:'100%',
+        alignSelf:"stretch",
+    }
 })
  
 export default Produtos;

@@ -7,6 +7,16 @@ import axios from 'axios';
 
 const Detalhes = ({exibeModal, alteraExibeModal}) =>{
 
+    const calculaTotal = () => {
+        let precoTotal = 0
+        produtosPedido.map(p=>{
+            precoTotal += parseFloat(p.preco_venda * p.quantidade)
+        })
+        return(
+            precoTotal.toFixed(2).replace(".",",")
+        )
+    }
+
     const [produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto) 
     console.log(produtosPedido)
     return(
@@ -44,9 +54,14 @@ const Detalhes = ({exibeModal, alteraExibeModal}) =>{
                                 <Text> Total: R$ {(p.preco_venda * p.quantidade).toFixed(2).replace(".",",")} </Text>
                             </Box>
                         </Box>
-
                     </Box>
                 )}
+
+                <Box>
+
+                    <Text style={e.TextoTotal} > Total: R$ {calculaTotal()} </Text>
+
+                </Box>
 
             </Box>
         </Modal>
@@ -94,7 +109,15 @@ const e = StyleSheet.create({
         backgroundColor:"red",
         marginLeft:125
     },
+
+    TextoTotal:{
+        fontSize: 18,
+        textAlign: "right",
+        padding: 10,
+        margin: 3,
+        borderBottomWidth: 1
+    }
  
-})  
+});
 
 export default Detalhes;

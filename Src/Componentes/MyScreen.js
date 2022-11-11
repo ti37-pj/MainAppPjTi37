@@ -1,13 +1,15 @@
 import React from "react";
-import { View, StyleSheet, ImageBackground, image} from "react-native-web";
+import { View, StyleSheet, ImageBackground, image, ScrollView} from "react-native-web";
 
 const MyScreen = (props) => {
     return ( 
         <View style={e.screen}>
             <ImageBackground source={require("../Assets/cabeca.png")}resizeMode="cover" style={e.image}></ImageBackground>
-            <View style={e.content}>
-                {props.children} 
-            </View>
+                <View style={e.content}>
+                    <ScrollView>
+                        {props.children}
+                    </ScrollView>
+                </View>
         </View>
      );
 }
@@ -18,7 +20,7 @@ const e=StyleSheet.create({
         backgroundColor:"#F2A922",
     },
     content:{
-        height:"72%",
+        height:"75%",
         width:"100%", 
         borderTopLeftRadius:32,
         borderTopRightRadius:32,
