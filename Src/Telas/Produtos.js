@@ -28,19 +28,32 @@ const Produtos = ({navigation}) => {
     }
 
     const colocarNoCarrinho = (produto) => {
-        
         setCarrinho([...carrinho, produto])
     };
 
     const mandarParaCarrinho = (p) => {
-        colocarNoCarrinho({
-            id:p.id,
-			nome:p.nome,
-			preco:p.preco_venda,
-            quantidade:1,
-            total:p.preco_venda,
-            imagem:p.imagem_url
+
+        let idProduto = null;
+        //console.log(p.id)
+        carrinho?.map((pm,i) => {
+            ///console.log(pm.id)
+            idProduto = pm.id == p.id ? i : idProduto;
         })
+
+        //console.log(idProduto)
+        if(idProduto == null){
+            
+            colocarNoCarrinho({
+                id:p.id,
+                nome:p.nome,
+                preco:p.preco_venda,
+                quantidade:1,
+                total:p.preco_venda,
+                imagem:p.imagem_url
+            })
+        }else{
+            carrinho[idProduto].quantidade += 1
+        }
 
         alert("Produto Inserido com Sucesso")
     }
