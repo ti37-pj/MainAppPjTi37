@@ -1,30 +1,25 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Produtos from './Produtos';
-import Carrinho from './Carrinho';
-import Pagamento from './Pagamento';
-import { ProdutoProvedor } from '../Contexto/ProdutosContexto';
-import { CategoriaProvedor } from '../Contexto/CategoriaContexto';
-import { CarrinhoProvedor } from '../Contexto/CarrinhoContexto';
+import {Button} from 'react-native'
 
 const Stack = createNativeStackNavigator();
 
 const Cardapio = ({navigation}) => {
 
-    
+    const botaoCarrinhoPressionado = () =>  {
+        navigation.navigate('Carrinho');
+    };
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => <Button title='Carrinho' onPress={botaoCarrinhoPressionado} />
+        });
+    }, [navigation])
+
     return (
-        <CarrinhoProvedor>
-            <CategoriaProvedor>
-                <ProdutoProvedor>
-                    <Stack.Navigator>
-                        <Stack.Screen name="Produtos" component={Produtos} />
-                        <Stack.Screen name="Pagamento" component={Pagamento} />
-                        <Stack.Screen name="Carrinho" component={Carrinho} />
-                    </Stack.Navigator>
-                </ProdutoProvedor>
-            </CategoriaProvedor> 
-        </CarrinhoProvedor>
-     );
+        <Produtos/>
+    )
 }
  
 export default Cardapio;

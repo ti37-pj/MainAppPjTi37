@@ -13,6 +13,16 @@ const Carrinho = ({navigation}) => {
         atualizaTotal()
     },produtosCarrinho)
 
+    const btnVoltar = () => {
+        navigation.navigate('Cardápio')
+    }
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => <Button title='Voltar' onPress={btnVoltar} />
+        });
+    }, [navigation])
+
     const [produtosCarrinho, setProdutosCarrinho] = React.useContext(CarrinhoContexto)
     const [totalCarrinho, setTotalCarrinho] = React.useState(0)
     const [pedido, setPedido] = React.useState();
@@ -121,7 +131,7 @@ const Carrinho = ({navigation}) => {
             <Text style={e.total} >Preço do Pedido:R${totalCarrinho}</Text>
             <Button
                 title="Fazer Pedido"
-                onPress={() => {navigation.navigate('Pagamento'), pagarClicado()}}
+                onPress={() => {navigation.navigate('Pedido'), pagarClicado()}}
             />
         </View>
      );

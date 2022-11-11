@@ -57,10 +57,6 @@ const Produtos = ({navigation}) => {
 
     return ( 
         <View>
-            <Button
-                title="Carrinho"
-                onPress={() => navigation.navigate('Carrinho')}
-            />
             {
                 produto==0 ? <Text>Nenhum Produto Encontrado</Text>
                 :
