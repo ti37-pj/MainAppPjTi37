@@ -30,6 +30,7 @@ const Produtos = ({navigation}) => {
     };
 
     const mandarParaCarrinho = (p) => {
+
         colocarNoCarrinho({
             id:p.id,
 			nome:p.nome,

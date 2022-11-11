@@ -2,13 +2,11 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button } from "@react-native-material/core";
 import { Box } from "@react-native-material/core";
 import React from 'react';
-import axios from 'axios';
-import api from './api';
 
-import Resumo from './assets/Componentes/Resumo';
-import StatusPedido from './assets/Componentes/StatusPedido'
-import Detalhes from './assets/Componentes/Detalhes'
-import { PedidoProvedor, PedidoContexto } from './assets/Contexto/PedidoContexto';
+import Resumo from '../Componentes/Resumo';
+import StatusPedido from '../Componentes/StatusPedido'
+import Detalhes from '../Componentes/Detalhes'
+import { PedidoProvedor, PedidoContexto } from '../Contexto/PedidoContexto';
 
 
 export default function App() {
