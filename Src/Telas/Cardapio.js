@@ -9,15 +9,17 @@ import { CarrinhoProvedor } from '../Contexto/CarrinhoContexto';
 
 const Stack = createNativeStackNavigator();
 
-const Cardapio = () => {
+const Cardapio = ({navigation}) => {
+
+    
     return (
         <CarrinhoProvedor>
             <CategoriaProvedor>
                 <ProdutoProvedor>
                     <Stack.Navigator>
                         <Stack.Screen name="Produtos" component={Produtos} />
-                        <Stack.Screen name="Carrinho" component={Carrinho} />
                         <Stack.Screen name="Pagamento" component={Pagamento} />
+                        <Stack.Screen name="Carrinho" component={Carrinho} />
                     </Stack.Navigator>
                 </ProdutoProvedor>
             </CategoriaProvedor> 

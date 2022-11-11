@@ -35,7 +35,6 @@ const Carrinho = ({navigation}) => {
                 return c
             }
         })
-        console.log(removeProduto)
         setProdutosCarrinho(removeProduto)
     }
 
