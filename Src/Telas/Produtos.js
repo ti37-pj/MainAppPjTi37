@@ -109,12 +109,18 @@ const e = StyleSheet.create({
     container:{
         flexDirection:"row",
         alignItems:"center",
-        backgroundColor:"white",
         margin:10,
     },
     img:{
         width:88,
         height:136,
+        resizeMode: "center",
+        borderWidth: 2,
+        borderColor: "#1a2426",
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
     },
     text:{
         fontWeight:"bold",
@@ -137,7 +143,7 @@ const e = StyleSheet.create({
         marginBottom:5,
     },
     preco:{
-        color:'#009688',
+        color:'#000',
         fontWeight:"bold",
     },
     btnView:{
@@ -147,7 +153,7 @@ const e = StyleSheet.create({
         justifyContent:"space-between",
     },
     btnRound:{
-        backgroundColor:"#009688",
+        backgroundColor:"#1a2426",
         color:"white",
         borderRadius: 50,
         textAlign:"center",
@@ -156,7 +162,7 @@ const e = StyleSheet.create({
         height:40,
     },
     btnSquare:{
-        backgroundColor:"#009688",
+        backgroundColor:"#1a2426",
         color:"white",
         padding:10,
         borderRadius: 5,
@@ -164,6 +170,8 @@ const e = StyleSheet.create({
     cardapio:{
         height:'100%',
         alignSelf:"stretch",
+        backgroundColor:"#Fff",
+        color:"#000",
     }
 })
  

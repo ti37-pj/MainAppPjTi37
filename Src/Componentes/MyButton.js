@@ -1,6 +1,5 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
-import { color } from "react-native-reanimated";
 
 const MyButton = ({onPress, title, principal, fixed}) => {
     return ( 
@@ -17,6 +16,8 @@ const MyButton = ({onPress, title, principal, fixed}) => {
         placeholderTextColor:'#99999',
         marginTop:16,
         marginBottom:16,
+        marginLeft:"auto",
+        marginRight:"auto",
         borderWidth: 1,
         borderColor: "#CCC",
         padding:15,
@@ -42,7 +43,8 @@ const MyButton = ({onPress, title, principal, fixed}) => {
     fixed:{
         position: "absolute",
         zIndex: 999,
-        bottom:20,
+        bottom:10,
+        left:"10%",
     },
     dinamic:{
         position:"relative",
