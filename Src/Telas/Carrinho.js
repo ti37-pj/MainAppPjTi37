@@ -63,11 +63,9 @@ const Carrinho = ({navigation}) => {
             })
         })
         const objPedido={
-            //mesa:mesa,
-            mesa:20,
+            mesa:mesa,
             observacao:observacao,
-            id_cliente:1,
-            //id_cliente:usuario.id,
+            id_cliente:usuario.id,
             produto:produtos
         }
         setPedido(objPedido)
