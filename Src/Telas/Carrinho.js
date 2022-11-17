@@ -1,6 +1,11 @@
 import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button, TextInput } from 'react-native';
 
+import MyScreen from "../Componentes/MyScreen";
+import MyButton from "../Componentes/MyButton";
+import MyText from "../Componentes/MyText";
+
+
 import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
 import { MesaContexto } from '../Contexto/MesaContexto';
 import { UsuarioContexto } from '../Contexto/UsuarioContexto';
@@ -19,7 +24,7 @@ const Carrinho = ({navigation}) => {
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
-            headerLeft: () => <Button title='Voltar' onPress={btnVoltar} />
+            headerLeft: () => <MyButton principal={true} title='Voltar' onPress={btnVoltar} />
         });
     }, [navigation])
 
@@ -96,9 +101,10 @@ const Carrinho = ({navigation}) => {
     }
 
     return (
-        <View>
+        <View style={e.screenView}>
+<MyScreen>
             {
-                produtosCarrinho == 0 ? <Text>Nenhum Produto no Carrinho</Text>:
+                produtosCarrinho == 0 ? <MyText>Nenhum Produto no Carrinho</MyText>:
                 <View>
                 {   
                     produtosCarrinho.map(c =>{
@@ -127,11 +133,15 @@ const Carrinho = ({navigation}) => {
             }
             <TextInput placeholder='Observações sobre o pedido' style={e.textInput} multiline={true} numberOfLines={4} onChangeText={(e)=>setObservacao(e)}/>
             <Text style={e.total} >Preço do Pedido:R${totalCarrinho}</Text>
-            <Button
+            
+        </MyScreen>
+        <MyButton principal={true} fixed={true}
                 title="Fazer Pedido"
                 onPress={() => {navigation.navigate('Pedido'), pagarClicado()}}
             />
         </View>
+
+        
      );
 }
 
@@ -192,7 +202,6 @@ const e = StyleSheet.create({
         margin:15,
     },
     textInput:{
-        borderRadius: 56,
         textAlign: "center",
         fontSize: 16,
         color: '#rgb(33 33 33)',
@@ -211,6 +220,9 @@ const e = StyleSheet.create({
         fontWeight:"bold",
         fontSize: 20,
     },
+    screenView:{
+        height:'100%',
+    }
 })
  
 export default Carrinho;

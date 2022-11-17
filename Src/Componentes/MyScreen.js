@@ -4,7 +4,7 @@ import { View, StyleSheet, ImageBackground, image, ScrollView} from "react-nativ
 const MyScreen = (props) => {
     return ( 
         <View style={e.screen}>
-            <ImageBackground source={require("../Assets/cabeca.png")}resizeMode="cover" style={e.image}></ImageBackground>
+            <ImageBackground source={{uri:"https://i.imgur.com/Kc2nNNz.png"}} resizeMode="cover" style={e.image}></ImageBackground>
                 <View style={e.content}>
                     <ScrollView>
                         {props.children}

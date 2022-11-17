@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Produtos from './Produtos';
-import {Button} from 'react-native'
+import MyButton from '../Componentes/MyButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,11 +11,11 @@ const Cardapio = ({navigation}) => {
         navigation.navigate('Carrinho');
     };
 
-    React.useLayoutEffect(() => {
+    /*React.useLayoutEffect(() => {
         navigation.setOptions({
-            headerRight: () => <Button title='Carrinho' onPress={botaoCarrinhoPressionado} />
+            headerRight: () => <MyButton principal={true} title='Carrinho' onPress={botaoCarrinhoPressionado} />
         });
-    }, [navigation])
+    }, [navigation])*/  
 
     return (
         <Produtos/>

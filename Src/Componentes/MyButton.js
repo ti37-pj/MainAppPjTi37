@@ -29,6 +29,7 @@ const MyButton = ({onPress, title, principal, fixed}) => {
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         width:'80%',
+        minWidth:80,    
         elevation: 10,
     },
 
