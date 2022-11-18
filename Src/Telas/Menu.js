@@ -11,10 +11,9 @@ import { ProdutoProvedor } from '../Contexto/ProdutosContexto';
 import { CategoriaProvedor } from '../Contexto/CategoriaContexto';
 import { CarrinhoProvedor } from '../Contexto/CarrinhoContexto';
 import { PedidoProvedor } from "../Contexto/PedidoContexto";
-import Carrinho from "./Carrinho";
 import Mesa from "./Mesa";
 import { MesaContexto } from "../Contexto/MesaContexto";
-import Pedido from "./Pedido";
+
 
 
 const Drawer = createDrawerNavigator();
