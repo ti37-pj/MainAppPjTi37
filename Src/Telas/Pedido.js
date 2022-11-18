@@ -10,7 +10,6 @@ const Pedido = () =>{
   const [produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto) 
   console.log(produtosPedido)
 
-<<<<<<< HEAD
     const calculaTotal = () => {
         let precoTotal = 0
         produtosPedido.map(p=>{
@@ -20,9 +19,6 @@ const Pedido = () =>{
             precoTotal.toFixed(2).replace(".",",")
         )
     }
-=======
-export default function Pedido() {
->>>>>>> cd433b9db152610c6ba07d59e2068660e88255ed
 
     return(
         
