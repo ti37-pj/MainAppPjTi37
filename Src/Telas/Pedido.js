@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text,  Image, Modal } from 'react-native';
 import { Box } from "@react-native-material/core";
 import { Button } from "@react-native-material/core";
@@ -7,8 +7,8 @@ import axios from 'axios';
 
 const Pedido = () =>{
 
-  const [produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto) 
-  console.log(produtosPedido)
+    const {produtosPedido, alteraProdutosPedido, buscaPedidoDaMesa } = React.useContext(PedidoContexto)
+  
 
     const calculaTotal = () => {
         let precoTotal = 0
@@ -19,6 +19,12 @@ const Pedido = () =>{
             precoTotal.toFixed(2).replace(".",",")
         )
     }
+
+    console.log(produtosPedido)
+
+    useEffect(() => {
+        buscaPedidoDaMesa()
+    }, []);
 
     return(
         

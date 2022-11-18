@@ -59,7 +59,7 @@ const Carrinho = ({navigation}) => {
     }
 
     const inserePedido = () => {
-        console.log(usuario)
+        //console.log(usuario)
         const produtos=[]
         produtosCarrinho.map(cp =>{
             produtos.push({
@@ -77,7 +77,7 @@ const Carrinho = ({navigation}) => {
         objPedido.produtos = []
         api.post("/pedidos/insere",objPedido)
             .then(res => {
-                console.log(res)
+              //  console.log(res)
             })
             .catch(res=> console.log(res))
     }

@@ -18,7 +18,7 @@ const Detalhes = ({exibeModal, alteraExibeModal}) =>{
     }
 
     const [produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto) 
-    console.log(produtosPedido)
+    //console.log(produtosPedido)
     return(
         <Modal visible={exibeModal}>
             <Box  >

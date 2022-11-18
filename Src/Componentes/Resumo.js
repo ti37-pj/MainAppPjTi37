@@ -12,9 +12,9 @@ const Resumo = ({alteraPedido}) => {
     React.useEffect(() => {
         axios.get ("http://10.60.46.64:3001/pedidos/busca_nao_enviado_por_mesa/" + 9 ) 
         .then( res => {
-            console.log(res.data)
+           // console.log(res.data)
             if(res.data == 0) {
-            console.log("Pedido zerado")
+           // console.log("Pedido zerado")
             return
             }
             const pedido_encontrado = res.data[ 0 ]

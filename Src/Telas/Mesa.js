@@ -10,14 +10,13 @@ const Mesa = ({navigation}) => {
 
     // const [ inputMesa, alteraInputMesa ] = React.useState('')
 
-    const [, alteraMesaContexto ] = React.useContext(MesaContexto);
-
-    const [mesa, alteraMesa] = useState(0);
+    const [mesa, alteraMesa ] = React.useContext(MesaContexto);
+    const [mesaState, alteraMesaState ] = React.useState(0);
 
     const ContinuarClicado = () => {
 
-        if ( mesa > 0 && mesa < 30) {
-            alteraMesaContexto(mesa)
+        if ( mesaState > 0 && mesaState < 30) {
+            alteraMesa(mesaState)
             navigation.navigate('Cardápio');
         } 
         
@@ -30,11 +29,11 @@ const Mesa = ({navigation}) => {
     }
 
     const [usuario,alteraUsuario] = React.useContext(UsuarioContexto)
-    console.log (usuario)
+    //console.log (usuario)
     return ( 
         <MyScreen>
             <MyTitle> Selecionar Mesa </MyTitle>
-            <MyInput  label='Número da Mesa' variant='outlined' onChangeText={alteraMesa} placeholder='Digite sua Mesa' />
+            <MyInput  label='Número da Mesa' variant='outlined' onChangeText={alteraMesaState} placeholder='Digite sua Mesa' />
             <MyButton title="Continuar" onPress={ContinuarClicado } principal={true} /> 
         </MyScreen>
      );
