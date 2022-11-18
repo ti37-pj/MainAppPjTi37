@@ -24,7 +24,11 @@ const Login = ({navigation}) => {
                 senha:senha
             }
 
+<<<<<<< HEAD
+            axios.post("http://10.60.46.64:3001/funcionarios/autentica", usuario)
+=======
             api.post("/funcionarios/autentica", usuario)
+>>>>>>> cd433b9db152610c6ba07d59e2068660e88255ed
             .then(res=>{
 
                 if (res.data == 0){

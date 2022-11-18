@@ -14,11 +14,9 @@ const StatusPedido = ({pedido}) => {
     ]
     let statusEncontrado = false
 
-    console.log(pedido)
     return(
         <Box>
             {pedido == null? <Text> Carregando </Text> : status.map((s)=>{
-                console.log(s.status)
                 if( statusEncontrado == true ){
                     return
                 }
@@ -26,7 +24,7 @@ const StatusPedido = ({pedido}) => {
                     statusEncontrado=true
                 }
 
-                return <Box style={e.Pedido} >
+                return <Box style={e.Pedido} key={s.id} >
                     <Image 
                         style={e.Imagem}
                         source={{ 
