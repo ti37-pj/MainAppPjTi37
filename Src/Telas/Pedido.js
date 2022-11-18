@@ -9,7 +9,7 @@ import Detalhes from '../Componentes/Detalhes'
 import { PedidoProvedor, PedidoContexto } from '../Contexto/PedidoContexto';
 
 
-export default function App() {
+export default function Pedido() {
 
   const [ exibeModal , alteraExibeModal ] = React.useState( false );
   const [ pedido, alteraPedido ] = React.useState(null)

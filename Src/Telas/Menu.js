@@ -10,6 +10,7 @@ import { CarrinhoProvedor } from '../Contexto/CarrinhoContexto';
 import Carrinho from "./Carrinho";
 import Mesa from "./Mesa";
 import { MesaContexto } from "../Contexto/MesaContexto";
+import Pedido from "./Pedido";
 
 const Drawer = createDrawerNavigator();
 
@@ -34,7 +35,7 @@ const Menu = ()=>{
                                         {(mesa === 0) && (
                                             <Drawer.Screen name="Mesa" component={Mesa} />
                                         )}
-                                        
+                                        <Drawer.Screen name="Pedido" component={Pedido} />
                                     </>
                                 )
                                 }			
