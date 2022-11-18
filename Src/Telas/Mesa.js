@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { UsuarioContexto } from "../Contexto/UsuarioContexto";
 import { MesaContexto } from "../Contexto/MesaContexto";
 import MyInput from "../Componentes/MyInput";
@@ -10,12 +10,15 @@ const Mesa = ({navigation}) => {
 
     // const [ inputMesa, alteraInputMesa ] = React.useState('')
 
-    const [ mesa, alteraMesa ] = React.useContext(MesaContexto);
+    const [, alteraMesaContexto ] = React.useContext(MesaContexto);
+
+    const [mesa, alteraMesa] = useState(0);
 
     const ContinuarClicado = () => {
 
         if ( mesa > 0 && mesa < 30) {
-        navigation.navigate('Cardápio');
+            alteraMesaContexto(mesa)
+            navigation.navigate('Cardápio');
         } 
         
         else {
