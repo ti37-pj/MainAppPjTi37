@@ -1,79 +1,129 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Button } from "@react-native-material/core";
-import { Box } from "@react-native-material/core";
 import React from 'react';
+import { StyleSheet, Text,  Image, Modal } from 'react-native';
+import { Box } from "@react-native-material/core";
+import { Button } from "@react-native-material/core";
+import { PedidoContexto } from "../Contexto/PedidoContexto";
+import axios from 'axios';
 
-import Resumo from '../Componentes/Resumo';
-import StatusPedido from '../Componentes/StatusPedido'
-import Detalhes from '../Componentes/Detalhes'
-import { PedidoProvedor, PedidoContexto } from '../Contexto/PedidoContexto';
+const Pedido = () =>{
 
+  const [produtosPedido, alteraProdutosPedido ] = React.useContext(PedidoContexto) 
+  console.log(produtosPedido)
 
-export default function App() {
+    const calculaTotal = () => {
+        let precoTotal = 0
+        produtosPedido.map(p=>{
+            precoTotal += parseFloat(p.preco_venda * p.quantidade)
+        })
+        return(
+            precoTotal.toFixed(2).replace(".",",")
+        )
+    }
 
-  const [ exibeModal , alteraExibeModal ] = React.useState( false );
-  const [ pedido, alteraPedido ] = React.useState(null)
+    return(
+        
+            <Box  >
+                { produtosPedido == 0?
+                 <Box style={e.Pedido} > 
+                     <Text> Pedido Concluído </Text> 
 
+                     <Image 
+                        style={e.Imagem}
+                        source={{
+                            uri: 'https://i.imgur.com/lC6bl2e.jpg',
+                        }}
+                        />
 
-  return (
-    <Box>
-      <PedidoProvedor>
-        <Box>
-          <Resumo alteraPedido={alteraPedido}/>
-          { pedido == null?
-            <Box style={e.Pedido} > 
-              <Text> Pedido Concluído </Text> 
+                 </Box>
+                 :
+                  produtosPedido.map((p,i) => 
 
-              <Image 
-                style={e.ImagemConcluido}
-                  source={{
-                   uri: 'https://i.imgur.com/lC6bl2e.jpg',
-                   }}
-               />
+                    <Box style={e.Linha} key={i}>
+                        <Image 
+                            style={e.Imagem}
+                            source={{
+                        uri: p.imagem_url,
+                        }}
+                        />
+                        <Box>
+                            <Text style={e.Texto} > {p.nome} </Text>
+                            <Box style={e.Linha2}>
+                                <Text  style={e.Texto2} >  Preço: {p.preco_venda} </Text>
+                                <Text style={e.Texto3} >  Qtd: {p.quantidade} </Text>
+                                <Text> Total: R$ {(p.preco_venda * p.quantidade).toFixed(2).replace(".",",")} </Text>
+                            </Box>
+                        </Box>
+                    </Box>
+                )}
 
-               <Button title="Voltar" />
+                <Box style={e.BotaoPagar}>
+
+                    <Button title='Pagar' />
+                    <Text style={e.TextoTotal} > Total: R$ {calculaTotal()} </Text>
+
+                </Box>
 
             </Box>
-          :
-          <Box>
-            
-            <StatusPedido pedido={pedido} />
-
-            <Button title='Detalhes' style={e.Botao} onPress={() => alteraExibeModal( !exibeModal )  } />
-            <Detalhes exibeModal={exibeModal} alteraExibeModal={alteraExibeModal} />
-          </Box>
-          }
-        </Box>    
-      </PedidoProvedor>
-    </Box> 
-  );
+        
+    );
 }
 
 const e = StyleSheet.create({
-  Botao:{
-    borderRadius: 5,
-    padding: 3,
-    width: 125,
-    marginTop: 8,
-    marginLeft: 15,
+    Imagem:{
+        width:50,
+        height:50,
+        borderRadius: "100%",
+        margin: 25
+    },
+    Pedido:{
+        marginTop:70,
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 25,
+    },
+    Nome:{
+        textAlign: "center",
+        padding: 10,
+        fontWeight:  "bold" ,
+        fontSize: 25,
+    },
+    Texto:{
+        padding: 1
+    },
+    Linha:{
+        flexDirection: "row",
+        alignItems: "center"
+        
+    },
+    Linha2:{
+        flexDirection: "row",
+        justifyContent:"space-between"
+    },
+    Botao:{
+        borderRadius: 5,
+        padding: 3,
+        width: 100,
+        marginTop: 8,
+        marginLeft: 15,
+        textAlign:"center",
+        backgroundColor:"red",
+        marginLeft:125
+    },
 
-  },
-  Imagem:{
-    width:50,
-    height:50,
-    borderRadius: "100%",
-    marginRight: 25,
-  },
-  ImagemConcluido:{
-    width:85,
-    height:85,
-  },
-  Pedido:{
-    marginTop:70,
-    alignItems: "center",
-    padding: 25,
-  },
-    
-})
+    TextoTotal:{
+        fontSize: 18,
+        textAlign: "right",
+        padding: 10,
+        margin: 3,
+    },
+    BotaoPagar:{
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent:"space-between",
+      padding:20,
+      backgroundColor:"#fff"
+    }
+ 
+});
 
-
+export default Pedido;

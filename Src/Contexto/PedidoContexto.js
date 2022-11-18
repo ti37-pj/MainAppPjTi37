@@ -13,31 +13,38 @@ export const PedidoProvedor = (props) =>{
   },[])
 
   const buscaPedidoDaMesa = () => {
-    axios.get ("http://10.60.46.31:3001/pedidos/busca_nao_concluido_por_mesa/" + mesa  ) 
+    axios.get ("http://10.60.46.64:3001/pedidos/busca_nao_enviado_por_mesa/" + mesa  ) 
     .then( res => {
-        console.log(res)
         if(res.data == 0) {
           console.log("Pedido zerado")
           return
         }
-        const pedido_encontrado = res.data[ 0 ]
-    //    alteraPedido(pedido_encontrado)
-        buscaProdutosPedido(pedido_encontrado.id)
+
+        res.data.map(r=>{
+          buscaProdutosPedido(r.id)
+        })
+    
     })
     .catch( res => console.log(res) )
   }
 
   const buscaProdutosPedido = (id) => {
+
+    return new Promise((resolve, reject))
     
-    axios.get("http://10.60.46.31:3001/pedidos/busca/" + id)
+    axios.get("http://10.60.46.64:3001/pedidos/busca/" + id)
     .then( res => {
-        console.log(res.data[1].produto)
         if(res.data == 0) {
           console.log("Produtos zerados")
           return
         }
+
         const produtos_encontrados = res.data[ 1 ].produto
-        alteraProdutosPedido(produtos_encontrados)
+        const produtos_concatenados = produtosPedido.concat(produtos_encontrados)
+
+        //produtosPedido.push(produtos_encontrados)
+        alteraProdutosPedido(produtos_concatenados)
+
     })
     .catch( res => console.log(res) )
 

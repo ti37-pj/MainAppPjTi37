@@ -23,7 +23,7 @@ const Login = ({navigation}) => {
                 senha:senha
             }
 
-            axios.post("http://10.60.46.31:3001/funcionarios/autentica", usuario)
+            axios.post("http://10.60.46.64:3001/funcionarios/autentica", usuario)
             .then(res=>{
 
                 if (res.data == 0){
