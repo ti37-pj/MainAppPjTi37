@@ -114,7 +114,7 @@ const e = StyleSheet.create({
     img:{
         width:88,
         height:136,
-        resizeMode: "center",
+        resizeMode: "cover",
         borderWidth: 2,
         borderColor: "#1a2426",
         borderTopRightRadius: 20,

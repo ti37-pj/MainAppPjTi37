@@ -10,6 +10,8 @@ import { CarrinhoContexto } from '../Contexto/CarrinhoContexto';
 import { MesaContexto } from '../Contexto/MesaContexto';
 import { UsuarioContexto } from '../Contexto/UsuarioContexto';
 
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 import api from '../../api';
 
 const Carrinho = ({navigation}) => {
@@ -24,7 +26,15 @@ const Carrinho = ({navigation}) => {
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
-            headerLeft: () => <MyButton principal={true} title='Voltar' onPress={btnVoltar} />
+            headerLeft: () => (
+                <Icon.Button
+                    name='chevron-left' 
+                    onPress={btnVoltar}
+                    size={24}
+                    color="#000"
+                    backgroundColor="transparent"
+                />
+            )
         });
     }, [navigation])
 
@@ -184,7 +194,7 @@ const e = StyleSheet.create({
     img:{
         width:70,
         height:100,
-        resizeMode: "center",
+        resizeMode: "cover",
         borderWidth: 5,
         borderColor: "#1a2426",
         borderTopRightRadius: 20,
