@@ -2,6 +2,11 @@ import React, {useEffect} from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { CategoriaContexto } from '../../Contexto/CategoriaContexto';
 import { CarrinhoContexto } from '../../Contexto/CarrinhoContexto';
+import MyScreen from '../MyScreen';
+import MyText from '../MyText';
+import MyButton from '../MyButton';
+
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const ProdutoModal = (props) => {
 
@@ -32,25 +37,29 @@ const ProdutoModal = (props) => {
     return ( 
         <View>
             <Modal animationType='slide' visible={visible} >
-                <TouchableOpacity onPress={ () => {
-                    setVisible(false);
-                    props.onClose();
-                }}>
-                    <Text style={e.fechar}>X</Text>
-                </TouchableOpacity>
-                <Text style={e.titulo}>{props.produto?.nome}</Text>
-                <Text style={e.subtitulo}>{buscaCategoria(props.produto?.id_categoria)}</Text>
-                <Text style={e.descricao}>{props.produto?.descricao}</Text>
-                <Text style={e.preco}> Preço: R${props.produto?.preco_venda}</Text>
-                <TouchableOpacity onPress={()=>{mandarParaCarrinho(); setVisible(false); props.onClose()} } >
-                    <Text style={e.btnCarrinho} >Adicionar ao Carrinho</Text>
-                </TouchableOpacity>
+                <Icon.Button
+                    size={24}
+                    color="#000"
+                    backgroundColor="transparent"
+                    name='close'
+                    onPress={ () => {
+                        setVisible(false);
+                        props.onClose();
+                    }}>
+                </Icon.Button>
+                <MyScreen>
+                    <MyText>{props.produto?.nome}</MyText>
+                    <MyText>{buscaCategoria(props.produto?.id_categoria)}</MyText>
+                    <MyText>{props.produto?.descricao}</MyText>
+                    <MyText> Preço: R${props.produto?.preco_venda}</MyText>
+                    <MyButton principal={true} title="Adicionar ao Carrinho" onPress={()=>{mandarParaCarrinho(); setVisible(false); props.onClose()} } />
+                </MyScreen>
             </Modal>
         </View>
      );
 }
 
-const e = StyleSheet.create({
+/*const e = StyleSheet.create({
     container:{
         flexDirection:"row",
     },
@@ -73,17 +82,16 @@ const e = StyleSheet.create({
         textAlign:"center",
     },
     descricao:{
+        textAlign: "center",
+        fontSize: 16,
+        color: '#rgb(33 33 33)',
         margin:5,
-        padding:10,
-        borderWidth:1,
-        borderColor:"#CCC",
-        fontSize:15
     },
     preco:{
-        marginTop:20,
-        marginBottom:20,
-        textAlign:"center",
-        fontSize:25
+        textAlign: "center",
+        fontSize: 16,
+        color: '#rgb(33 33 33)',
+        margin:5,
 
     },
     btnCarrinho:{
@@ -97,6 +105,6 @@ const e = StyleSheet.create({
         color:"white",
         fontSize:25
     }
-})
+})*/
  
-export default ProdutoModal
+export default ProdutoModal;

@@ -1,7 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Produtos from './Produtos';
-import MyButton from '../Componentes/MyButton';
 
 const Stack = createNativeStackNavigator();
 
