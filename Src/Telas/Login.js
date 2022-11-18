@@ -7,6 +7,7 @@ import MyButton from "../Componentes/MyButton";
 import MyText from "../Componentes/MyText";
 import MyTitle from "../Componentes/MyTitle";
 import { UsuarioContexto } from "../Contexto/UsuarioContexto";
+import api from "../../api";
 
 
 const Login = ({navigation}) => {
@@ -23,7 +24,7 @@ const Login = ({navigation}) => {
                 senha:senha
             }
 
-            axios.post("http://10.60.46.31:3001/funcionarios/autentica", usuario)
+            api.post("/funcionarios/autentica", usuario)
             .then(res=>{
 
                 if (res.data == 0){
