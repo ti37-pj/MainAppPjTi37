@@ -2,9 +2,9 @@
 import React from "react";
 import { StyleSheet, TextInput} from "react-native";
 
-const MyInput = ({label, variant, onChangeText, placeholder}) => {
+const MyInput = ({label, variant, onChangeText, placeholder, multiline}) => {
     return ( 
-        <TextInput label={label} placeholder={placeholder} variant={variant} onChangeText={onChangeText} style={[e.texto]}/>
+        <TextInput label={label} placeholder={placeholder} variant={variant} onChangeText={onChangeText} multiline={multiline} style={[e.texto]}/>
      );
 }
  
