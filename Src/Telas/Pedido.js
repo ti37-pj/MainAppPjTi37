@@ -70,7 +70,7 @@ const Pedido = () =>{
             <Box  >
                 { pedidos == 0?
                  <Box style={e.Pedido} > 
-                     <Text> Pedido Concluído </Text> 
+                     <MyText> Pedido Concluído </MyText> 
 
                      <Image 
                         style={e.Imagem}
@@ -136,8 +136,8 @@ const Pedido = () =>{
                         }}
                     />
 
-                    <Button title='Pagar' onPress={() => {navigation.navigate('Login'), insereVenda()}} />
-                    <Text style={e.TextoTotal} > Total: R$ {calculaTotal()} </Text>
+                    <MyButton title='Pagar' onPress={() => {navigation.navigate('Login'), insereVenda()}} />
+                    <MyText> Total: R$ {calculaTotal()} </MyText>
 
                 </Box>
 
