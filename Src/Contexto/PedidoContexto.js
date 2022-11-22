@@ -8,7 +8,7 @@ export const PedidoContexto = React.createContext()
 export const PedidoProvedor = (props) =>{
 
     const [ mesa, alteraMesa ] = React.useContext( MesaContexto )
-    const [produtosPedido, alteraProdutosPedido ] = React.useState([])
+    const [pedidos, alteraPedidos ] = React.useState([])
     /*
   React.useLayoutEffect(() => {
     buscaPedidoDaMesa()
@@ -26,7 +26,7 @@ export const PedidoProvedor = (props) =>{
         }
 
         console.log(res.data)
-        alteraProdutosPedido(res.data)
+        alteraPedidos(res.data)
 
         /*
         res.data.map(r=>{
@@ -37,28 +37,9 @@ export const PedidoProvedor = (props) =>{
     })
     .catch( res => console.log(res) )
   }
-/*
-  const buscaProdutosPedido = (id) => {
-    axios.get("http://10.60.46.64:3001/pedidos/busca/" + id)
-    .then( res => {
-        if(res.data == 0) {
-          console.log("Produtos zerados")
-          return
-        }
-        console.log(res.data)
-        const produtos_encontrados = res.data[ 1 ].produto
-        const produtos_concatenados = produtosPedido.concat(produtos_encontrados)
-
-        //produtosPedido.push(produtos_encontrados)
-        alteraProdutosPedido(produtos_concatenados)
-
-    })
-    .catch( res => console.log(res) )
-
-  }*/
 
     return(
-        <PedidoContexto.Provider value={{produtosPedido, alteraProdutosPedido, buscaPedidoDaMesa}}>
+        <PedidoContexto.Provider value={{pedidos, alteraPedidos, buscaPedidoDaMesa}}>
             {props.children}
         </PedidoContexto.Provider>
     )

@@ -40,10 +40,10 @@ const Carrinho = ({navigation}) => {
 
     const [produtosCarrinho, setProdutosCarrinho] = React.useContext(CarrinhoContexto)
     const [totalCarrinho, setTotalCarrinho] = React.useState(0)
+    const [pedido, setPedido] = React.useState();
     const [observacao, setObservacao] = React.useState('');
     const [mesa, setMesa] = React.useContext(MesaContexto);
     const [usuario, alteraUsuario] = React.useContext(UsuarioContexto)
-    //console.log(produtosCarrinho)
 
     const atualizaTotal = () => {
         let precoTotal = 0
@@ -73,24 +73,21 @@ const Carrinho = ({navigation}) => {
         const produtos=[]
         produtosCarrinho.map(cp =>{
             produtos.push({
-                id_produtos:cp.id,
+                id_produto:cp.id,
                 quantidade:cp.quantidade
             })
         })
-        // console.log('produtos')
-        // console.log(produtos)
         const objPedido={
             mesa:mesa,
             observacao:observacao,
             id_cliente:usuario.id,
-            produtos:produtos
+            produto:produtos
         }
-        // console.log('objPedido')
-        // console.log(objPedido)
+        setPedido(objPedido)
+        objPedido.produtos = []
         api.post("/pedidos/insere",objPedido)
             .then(res => {
-                console.log('resposta')
-                console.log(res)
+              //  console.log(res)
             })
             .catch(res=> console.log(res))
     }
