@@ -1,9 +1,9 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
-const MyButton = ({onPress, title, principal, fixed}) => {
+const MyButton = ({onPress, title, principal, fixed, right }) => {
     return ( 
-        <TouchableOpacity onPress={onPress} style={[e.botao, principal ? e.principal:e.secundary, fixed ? e.fixed: e.dinamic]}>
+        <TouchableOpacity onPress={onPress} style={[e.botao, principal ? e.principal:e.secundary, fixed ? e.fixed: e.dinamic, right ? e.right: e.none]}>
             <Text style={principal ? e.principal:e.secundary}>{title}</Text>
         </TouchableOpacity>
      );
@@ -50,6 +50,14 @@ const MyButton = ({onPress, title, principal, fixed}) => {
     dinamic:{
         position:"relative",
     },
+    right:{
+        right:"5%",
+        position: "absolute",
+        zIndex: 999,
+        bottom:0,
+        width:"40%",
+    },
+    none:{}
 
  })
 

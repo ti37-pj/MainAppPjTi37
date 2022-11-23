@@ -11,13 +11,17 @@ import api from '../../api';
 import MyButton from "../Componentes/MyButton";
 import MyText from "../Componentes/MyText";
 import MyScreen from "../Componentes/MyScreen";
-import MyInput from "../Componentes/MyInput";
+import MyDropdown from "../Componentes/MyDropdown";
 
 const Pedido = () =>{
 
     const {pedidos, alteraPedidos, buscaPedidoDaMesa } = React.useContext(PedidoContexto)
     const buscaCategoria = React.useContext(CategoriaContexto)
-    const ModoDePagamento =[ "Cartão", "Dinheiro", "Pix" ] 
+    const ModoDePagamento =[
+        { label: 'Cartão', value: '1' },
+        { label: 'Dinheiro', value: '2' },
+        { label: 'Pix', value: '3' },
+    ];
     const [ pagamentoSelecionado, alteraPagemento ] = React.useState('')
     const [observacaoVenda, setObservacao] = React.useState('');
     const [usuario, alteraUsuario] = React.useContext(UsuarioContexto)
@@ -71,22 +75,9 @@ const Pedido = () =>{
     return(
         <View style={e.screenView}>
             <View style={e.headerVenda}>
-                <TextInput placeholder='Observações sobre o pedido' style={e.textInput} multiline={true} numberOfLines={2} onChangeText={(e)=>setObservacao(e)}/>
-                <SelectDropdown
-                    data={ModoDePagamento}
-                    onSelect={(selectedItem, index) => {
-                        alteraPagemento(selectedItem)
-                        console.log(selectedItem, index)
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem
-                    }}
-                    rowTextForSelection={(item, index) => {
-                        return item
-                    }}
-                />
-                <MyButton title='Pagar' onPress={() => {navigation.navigate('Login'), insereVenda()}} />
-                <MyText> Total: R$ {calculaTotal()} </MyText>
+                <TextInput placeholder='Observações para o garçom' style={e.textInput} multiline={true} numberOfLines={2} onChangeText={(e)=>setObservacao(e)}/>
+                <MyDropdown label="Select Item" data={ModoDePagamento} onSelect={alteraPagemento} />
+
 
             </View>
             <MyScreen>
@@ -140,10 +131,48 @@ const Pedido = () =>{
                     </Box>
                 )}
             </MyScreen>
+            
+            <MyText fixed={true} > Total: R$ {calculaTotal()} </MyText>
+            <MyButton title='Pagar' right={true} principal={true} onPress={() => {navigation.navigate('Login'), insereVenda()}} />
         </View>
     );
 }
-
+const colourStyles = {
+    control: (styles) => ({ 
+        ...styles,
+        borderRadius: 56,
+        textAlign: "center",
+        fontSize: 16,
+        placeholderTextColor:'#99999',
+        marginTop:16,
+        marginBottom:16,
+        marginLeft:"auto",
+        marginRight:"auto",
+        borderWidth: 1,
+        borderColor: "#CCC",
+        padding:15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        width:'80%',
+        minWidth:80,    
+        elevation: 10,
+        backgroundColor:"#1a2426",
+        color:"#fff"
+    }),
+    option: (styles, { isDisabled }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled ? "red" : "green",
+        color: "#FFF",
+        cursor: isDisabled ? "not-allowed" : "default"
+      };
+    }
+  };
 const e = StyleSheet.create({
     Imagem:{
         width:50,
@@ -249,7 +278,6 @@ const e = StyleSheet.create({
     screenView:{
         height:'100%',
     },
- 
 });
 
 export default Pedido;
