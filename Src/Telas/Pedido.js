@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import { Divider } from '@mui/material';
 import { StyleSheet, Text,  Image, Modal,View,TextInput } from 'react-native';
 import { Box, select } from "@react-native-material/core";
-import { Button } from "@react-native-material/core";
 import { PedidoContexto } from "../Contexto/PedidoContexto";
 import { CategoriaContexto } from '../Contexto/CategoriaContexto';
 import SelectDropdown from 'react-native-select-dropdown'
 import { UsuarioContexto } from '../Contexto/UsuarioContexto';
 import api from '../../api';
 
+import MyButton from "../Componentes/MyButton";
+import MyText from "../Componentes/MyText";
+import MyScreen from "../Componentes/MyScreen";
+import MyInput from "../Componentes/MyInput";
 
 const Pedido = () =>{
 
@@ -66,47 +69,66 @@ const Pedido = () =>{
     }, [pedidos]);
 
     return(
-        
-            <Box  >
+        <View style={e.screenView}>
+            <View style={e.headerVenda}>
+                <TextInput placeholder='Observações sobre o pedido' style={e.textInput} multiline={true} numberOfLines={2} onChangeText={(e)=>setObservacao(e)}/>
+                <SelectDropdown
+                    data={ModoDePagamento}
+                    onSelect={(selectedItem, index) => {
+                        alteraPagemento(selectedItem)
+                        console.log(selectedItem, index)
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                        return selectedItem
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item
+                    }}
+                />
+                <MyButton title='Pagar' onPress={() => {navigation.navigate('Login'), insereVenda()}} />
+                <MyText> Total: R$ {calculaTotal()} </MyText>
+
+            </View>
+            <MyScreen>
                 { pedidos == 0?
-                 <Box style={e.Pedido} > 
-                     <Text> Pedido Concluído </Text> 
+                    <Box style={e.Pedido} > 
+                        <MyText> Pedido Concluído </MyText> 
 
-                     <Image 
-                        style={e.Imagem}
-                        source={{
-                            uri: 'https://i.imgur.com/lC6bl2e.jpg',
-                        }}
-                        />
-
-                 </Box>
-                 :
-                 pedidos.map((p,i) => 
-
-                    <Box style={e.Linha} key={i}>
                         <Image 
                             style={e.Imagem}
                             source={{
-                        uri: p.imagem_url,
-                        }}
-                        />
+                                uri: 'https://i.imgur.com/lC6bl2e.jpg',
+                            }}
+                            />
+
+                    </Box>
+                    :
+                     pedidos.map((p,i) => 
+
+                        <Box style={e.Linha} key={i}>
+                            <Image 
+                                style={e.Imagem}
+                                source={{
+                                    uri: p.imagem_url,
+                                }}
+                            />
                         <Box>
-                            <Text style={e.Texto} > {p.nome} </Text>
+                            <MyText style={e.Texto} > {p.nome} </MyText>
                             <Box style={e.Linha2}>
-                                <Text  style={e.Texto2} >  Id do Pedido: {p.id} </Text>
-                                <Text style={e.Texto3} >  Observação: {p.observacao} </Text>
-                                <Text style={e.Texto3} >  status: {p.status} </Text>
+                                <MyText >  Id do Pedido: {p.id} </MyText>
+                                <MyText >  Observação: {p.observacao} </MyText>
+                                <MyText >  status: {p.status} </MyText>
                             </Box>
                             <>
                                 {
                                     p.produtos.map((produto, index) =>
                                     <Box  key={index}>
                                         <Image style={e.img}  source={{uri:produto.imagem_url}} />
-                                        <View style={e.containerInfo} >
-                                            <Text style={e.text}>{produto.nome}</Text>
+                                        <View  >
+                                            <MyText>{produto.nome}</MyText>
                                             <View style={e.containerCategoriaPreco} >
-                                                <Text>{buscaCategoria(produto.id_categoria)}</Text>
-                                                <Text style={e.preco}>R$:{produto.preco_venda}</Text>
+                                                <MyText>{buscaCategoria(produto.id_categoria)}</MyText>
+                                                <MyText style={e.preco}>R$:{produto.preco_venda}</MyText>
                                             </View>
                                             <Divider/> 
                                         </View>
@@ -117,32 +139,8 @@ const Pedido = () =>{
                         </Box>
                     </Box>
                 )}
-
-                <Box style={e.BotaoPagar}>
-
-                <TextInput placeholder='Observações sobre o pedido' style={e.textInput} multiline={true} numberOfLines={4} onChangeText={(e)=>setObservacao(e)}/>
-
-                    <SelectDropdown
-                        data={ModoDePagamento}
-                        onSelect={(selectedItem, index) => {
-                            alteraPagemento(selectedItem)
-                            console.log(selectedItem, index)
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
-                        }}
-                    />
-
-                    <Button title='Pagar' onPress={() => {navigation.navigate('Login'), insereVenda()}} />
-                    <Text style={e.TextoTotal} > Total: R$ {calculaTotal()} </Text>
-
-                </Box>
-
-            </Box>
-        
+            </MyScreen>
+        </View>
     );
 }
 
@@ -193,12 +191,16 @@ const e = StyleSheet.create({
         padding: 10,
         margin: 3,
     },
-    BotaoPagar:{
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent:"space-between",
-      padding:20,
-      backgroundColor:"#fff"
+    headerVenda:{
+        position:"absolute",
+        height:"29%",
+        width:"100%", 
+        borderTopLeftRadius:32,
+        borderTopRightRadius:32,
+        top:0, 
+        paddingLeft:10,
+        paddingRight:10,
+        zIndex: 999,
     },
     img:{
         width:88,
@@ -232,16 +234,20 @@ const e = StyleSheet.create({
         fontWeight:"bold",
     },
     textInput:{
+        height:99,
         textAlign: "center",
         fontSize: 16,
-        color: '#rgb(33 33 33)',
+        color: '#f8f8f8',
         placeholderTextColor:'#99999',
         marginTop:16,
         marginBottom:16,
         borderWidth: 1,
         borderColor: "#CCC",
         padding:15,
-        backgroundColor:"#Fff",
+        backgroundColor:"#FFF",
+    },
+    screenView:{
+        height:'100%',
     },
  
 });
