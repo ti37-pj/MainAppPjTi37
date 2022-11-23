@@ -22,6 +22,8 @@ const Pedido = () =>{
     const [observacaoVenda, setObservacao] = React.useState('');
     const [usuario, alteraUsuario] = React.useContext(UsuarioContexto)
 
+    const [pedidoZerado, alteraPedidoZerado] = React.useState();
+
     const calculaTotal = () => {
         let precoTotal = 0
         pedidos.map(pedido=>{
@@ -61,12 +63,20 @@ const Pedido = () =>{
             .catch(res=> console.log(res))
     }
 
-    console.log("produtosPedido: ")
-    console.log(pedidos)
+    
+    const cicloChamadaPedido = () => {
+        
+        buscaPedidoDaMesa()
+        setTimeout(() => {
+            cicloChamadaPedido();
+        }, 3000);
+
+    }
+    // cicloChamadaPedido();
 
     useEffect(() => {
-        buscaPedidoDaMesa();
-    }, [pedidos]);
+        cicloChamadaPedido();
+    }, []);
 
     return(
         <View style={e.screenView}>
@@ -90,7 +100,7 @@ const Pedido = () =>{
 
             </View>
             <MyScreen>
-                { pedidos == 0?
+                { pedidoZerado == true?
                     <Box style={e.Pedido} > 
                         <MyText> Pedido Concluído </MyText> 
 
