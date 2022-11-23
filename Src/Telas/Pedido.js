@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Divider } from '@mui/material';
-import { StyleSheet, Text,  Image, Modal,View,TextInput } from 'react-native';
+import { StyleSheet, Text,  Image, Modal,View,TextInput, ScrollView } from 'react-native';
 import { Box, select } from "@react-native-material/core";
 import { PedidoContexto } from "../Contexto/PedidoContexto";
 import { CategoriaContexto } from '../Contexto/CategoriaContexto';
@@ -12,6 +12,7 @@ import MyButton from "../Componentes/MyButton";
 import MyText from "../Componentes/MyText";
 import MyScreen from "../Componentes/MyScreen";
 import MyDropdown from "../Componentes/MyDropdown";
+import MyTitle from '../Componentes/MyTitle';
 
 const Pedido = () =>{
 
@@ -86,11 +87,12 @@ const Pedido = () =>{
         <View style={e.screenView}>
             <View style={e.headerVenda}>
                 <TextInput placeholder='Observações para o garçom' style={e.textInput} multiline={true} numberOfLines={2} onChangeText={(e)=>setObservacao(e)}/>
-                <MyDropdown label="Select Item" data={ModoDePagamento} onSelect={alteraPagemento} />
+                <MyDropdown label="Forma de pagamento" data={ModoDePagamento} onSelect={alteraPagemento} />
 
 
             </View>
             <MyScreen>
+                <MyText style={e.Texto}>  </MyText>
                 { pedidoZerado == true?
                     <Box style={e.Pedido} > 
                         <MyText> Pedido Concluído </MyText> 
@@ -104,86 +106,45 @@ const Pedido = () =>{
 
                     </Box>
                     :
-                     pedidos.map((p,i) => 
-
-                        <Box style={e.Linha} key={i}>
-                            <Image 
-                                style={e.Imagem}
-                                source={{
-                                    uri: p.imagem_url,
-                                }}
-                            />
-                        <Box>
-                            <MyText style={e.Texto} > {p.nome} </MyText>
+                    pedidos.map((p,i) => 
+                        <Box style={e.Pedido} key={i}>
                             <Box style={e.Linha2}>
-                                <MyText >  Id do Pedido: {p.id} </MyText>
-                                <MyText >  Observação: {p.observacao} </MyText>
-                                <MyText >  status: {p.status} </MyText>
+                                <View style={e.Linha}><MyTitle >  #{p.id} </MyTitle>:<MyText > {p.status} </MyText></View>
+                                <MyText > {p.observacao} </MyText>
                             </Box>
-                            <>
-                                {
-                                    p.produtos.map((produto, index) =>
-                                    <Box  key={index}>
-                                        <Image style={e.img}  source={{uri:produto.imagem_url}} />
-                                        <View  >
-                                            <MyText>{produto.nome}</MyText>
-                                            <View style={e.containerCategoriaPreco} >
-                                                <MyText>{buscaCategoria(produto.id_categoria)}</MyText>
-                                                <MyText style={e.preco}>R$:{produto.preco_venda}</MyText>
-                                            </View>
-                                            <Divider/> 
-                                        </View>
-                                    </Box>
-                                    )
-                                }
-                            </>
+                            <View style={e.scrollx}>
+                            {
+                                p.produtos.map((produto, index) =>
+                                <Box style={e.produto} key={index}>
+                                    <Image style={e.img}  source={{uri:produto.imagem_url}} />
+                                    <Text>{produto.nome}</Text>
+                                    <Text>{buscaCategoria(produto.id_categoria)}</Text>
+                                    <View style={e.Linha}> <Text style={e.preco}>{produto.quantidade}</Text> X <Text style={e.preco}>R$:{produto.preco_venda}</Text></View>
+
+                                </Box>
+                                )
+                            }
+                            </View>
+                            <Divider/> 
                         </Box>
-                    </Box>
-                )}
+                    )
+                }
             </MyScreen>
-            
+        
             <MyText fixed={true} > Total: R$ {calculaTotal()} </MyText>
             <MyButton title='Pagar' right={true} principal={true} onPress={() => {navigation.navigate('Login'), insereVenda()}} />
         </View>
     );
 }
-const colourStyles = {
-    control: (styles) => ({ 
-        ...styles,
-        borderRadius: 56,
-        textAlign: "center",
-        fontSize: 16,
-        placeholderTextColor:'#99999',
-        marginTop:16,
-        marginBottom:16,
-        marginLeft:"auto",
-        marginRight:"auto",
-        borderWidth: 1,
-        borderColor: "#CCC",
-        padding:15,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        width:'80%',
-        minWidth:80,    
-        elevation: 10,
-        backgroundColor:"#1a2426",
-        color:"#fff"
-    }),
-    option: (styles, { isDisabled }) => {
-      return {
-        ...styles,
-        backgroundColor: isDisabled ? "red" : "green",
-        color: "#FFF",
-        cursor: isDisabled ? "not-allowed" : "default"
-      };
-    }
-  };
 const e = StyleSheet.create({
+    produto:{
+        width:160,
+        alignItems: "center",
+        padding:10,
+        paddingTop:0,
+        margin:10,
+        marginTop:0,
+    },
     Imagem:{
         width:50,
         height:50,
@@ -191,10 +152,10 @@ const e = StyleSheet.create({
         margin: 25
     },
     Pedido:{
-        marginTop:70,
-        flexDirection: "row",
-        alignItems: "center",
+        width:"100%",
+        marginTop:10,
         padding: 25,
+        position: "relative"
     },
     Nome:{
         textAlign: "center",
@@ -203,7 +164,14 @@ const e = StyleSheet.create({
         fontSize: 25,
     },
     Texto:{
-        padding: 1
+        padding: 10
+    },
+    content:{
+    },
+    scrollx:{
+        flexDirection: "row",
+        alignItems: "center",
+        overflow: "auto"
     },
     Linha:{
         flexDirection: "row",
@@ -242,8 +210,9 @@ const e = StyleSheet.create({
         zIndex: 999,
     },
     img:{
-        width:88,
-        height:136,
+        marginHorizontal:"auto",
+        width:120,
+        height:120,
         resizeMode: "cover",
         borderWidth: 2,
         borderColor: "#1a2426",
@@ -251,6 +220,7 @@ const e = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderBottomRightRadius: 20,
         borderBottomLeftRadius: 20,
+
     },
     containerInfo:{
         width:200,
@@ -271,6 +241,7 @@ const e = StyleSheet.create({
     preco:{
         color:'#000',
         fontWeight:"bold",
+        marginHorizontal:5,
     },
     textInput:{
         height:99,

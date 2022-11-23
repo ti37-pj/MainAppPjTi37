@@ -15,6 +15,7 @@ const e=StyleSheet.create({
         fontSize: 16,
         color: '#rgb(33 33 33)',
         margin:5,
+        wordBreak: "break-all",
     },
     fixed:{
         position: "absolute",
