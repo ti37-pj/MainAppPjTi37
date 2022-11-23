@@ -9,11 +9,7 @@ export const PedidoProvedor = (props) =>{
 
     const [ mesa, alteraMesa ] = React.useContext( MesaContexto )
     const [pedidos, alteraPedidos ] = React.useState([])
-    /*
-  React.useLayoutEffect(() => {
-    buscaPedidoDaMesa()
-  },[])
-  */
+
 
   const buscaPedidoDaMesa = () => {
     console.log(`PedidoProvedor: mesa ${mesa}`)
@@ -27,12 +23,6 @@ export const PedidoProvedor = (props) =>{
 
         console.log(res.data)
         alteraPedidos(res.data)
-
-        /*
-        res.data.map(r=>{
-          buscaProdutosPedido(r.id)
-        })
-        */
     
     })
     .catch( res => console.log(res) )

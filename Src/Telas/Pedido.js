@@ -54,16 +54,16 @@ const Pedido = () =>{
         
         api.post("/vendas/insere/",objVenda)
             .then(res => {
-              //  console.log(res)
             })
             .catch(res=> console.log(res))
     }
 
     console.log("produtosPedido: ")
     console.log(pedidos)
+
     useEffect(() => {
-        buscaPedidoDaMesa()
-    }, []);
+        buscaPedidoDaMesa();
+    }, [pedidos]);
 
     return(
         
